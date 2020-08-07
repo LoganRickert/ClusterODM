@@ -126,7 +126,7 @@ module.exports = class Node{
     }
     
     getLastQueueZero() {
-        return this.nodeData.queueZero || (new Date()).getTime().   
+        return this.nodeData.queueZero || this.getDockerMachineCreated();  
     }
 
     setLastQueueZero(queueZero) {
