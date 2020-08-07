@@ -11,7 +11,6 @@
     "token":"",
     "debug": false,
     "log-level": "info",
-    "max-queue-zero": -1,
     "upload-max-speed": 0,
     "ssl-key": "",
     "ssl-cert": "",
