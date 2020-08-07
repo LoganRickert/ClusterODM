@@ -150,7 +150,7 @@ module.exports = class AbstractASRProvider{
             
             await this.setupMachine(req, token, dm, nodeToken);
             
-            const node = new Node(await dm.getIP(), this.getServicePort(), nodeToken, config.max_queue_zero);
+            const node = new Node(await dm.getIP(), this.getServicePort(), nodeToken, this.getMaxQueueZero());
     
             // Wait for the node to get online
             for (let i = 1; i <= 5; i++){
