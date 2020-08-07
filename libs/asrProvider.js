@@ -127,13 +127,16 @@ module.exports = {
                 if (n.getDockerMachineMaxRuntime() > 0 && (now - n.getDockerMachineCreated()) > n.getDockerMachineMaxRuntime() * 1000){
                     logger.warn(`${n} has exceeded its maximum runtime and will be forcibly deleted!`)
                     cleanNodes.push(n);
-                }else{
-                    if (n.getDockerMachineMaxUploadTime() > 0 &&
-                        n.getInfoProperty("taskQueueCount", 0) === 0 && 
-                        (now - n.getDockerMachineCreated()) > n.getDockerMachineMaxUploadTime() * 1000){
-                        logger.warn(`${n} has exceeded its maximum upload time and will be forcibly deleted!`)
-                        cleanNodes.push(n);
-                    }
+                } else if (n.getDockerMachineMaxUploadTime() > 0 &&
+                    n.getInfoProperty("taskQueueCount", 0) === 0 && 
+                    (now - n.getDockerMachineCreated()) > n.getDockerMachineMaxUploadTime() * 1000){
+                    logger.warn(`${n} has exceeded its maximum upload time and will be forcibly deleted!`)
+                    cleanNodes.push(n);
+                } else if (n.getMaxQueueZero() > 0 && n.getInfoProperty("taskQueueCount", 0) === 0 && now - n.getLastQueueZero() > n.getMaxQueueZero() * 1000) {
+                    logger.warn(`${n} been exceeded max queue at zero time and will be forcibly deleted!`)
+                    cleanNodes.push(n);
+                } else if (n.getInfoProperty("taskQueueCount", 0) > 0) {
+                    n.setLastQueueZero(now);
                 }
             }else{
                 // Offline
