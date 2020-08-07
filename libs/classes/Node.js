@@ -20,7 +20,7 @@ const url = require('url');
 const axios = require('axios');
 
 module.exports = class Node{
-    constructor(hostname, port, token = ""){
+    constructor(hostname, port, token = "", queueZero = -1){
         this.nodeData = {
             hostname,
             port,
