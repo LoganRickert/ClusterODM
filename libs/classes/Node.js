@@ -25,6 +25,7 @@ module.exports = class Node{
             hostname,
             port,
             token,
+            queueZero,
             info: {}
         };
         this.turn = 0;
@@ -123,7 +124,19 @@ module.exports = class Node{
     isAutoSpawned(){
         return !!this.getDockerMachineName();
     }
+    
+    getLastQueueZero() {
+        return this.nodeData.queueZero || (new Date()).getTime().   
+    }
 
+    setLastQueueZero(queueZero) {
+        this.nodeData.queueZero = queueZero;
+    }
+    
+    getMaxQueueZero(){
+        return this.getInfoProperty('maxQueueZero', -1);
+    }
+    
     isLocked(){
         return !!this.nodeData.locked;
     }
