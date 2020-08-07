@@ -65,6 +65,10 @@ module.exports = class AbstractASRProvider{
     getMachinesLimit(){
         return -1;
     }
+    
+    getMaxQueueZero() {
+        return this.getConfig("maxQueueZero");
+    }
 
     getCreateRetries(){
         1;
@@ -146,7 +150,7 @@ module.exports = class AbstractASRProvider{
             
             await this.setupMachine(req, token, dm, nodeToken);
             
-            const node = new Node(await dm.getIP(), this.getServicePort(), nodeToken);
+            const node = new Node(await dm.getIP(), this.getServicePort(), nodeToken, config.max_queue_zero);
     
             // Wait for the node to get online
             for (let i = 1; i <= 5; i++){
